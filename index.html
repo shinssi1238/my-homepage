@@ -1,50 +1,113 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Ken의 감성 홈페이지</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KenLab | Professional Homepage</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Nanum Pen Script', cursive;
-      background: linear-gradient(to right, #ffe2e2, #d5aaff);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
-    }
-    p {
-      font-size: 1.5em;
-      margin-bottom: 1.5em;
-    }
-    a.button {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #ff8fa3;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2em;
-      border-radius: 15px;
-      transition: 0.3s;
-    }
-    a.button:hover {
-      background-color: #ff3c68;
-    }
+    /* Reset & 기본 설정 */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Roboto, sans-serif; color: #333; background-color: #f9f9f9; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* 컨테이너 폭 제한 */
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+    /* 헤더 */
+    header { background-color: #111; }
+    header .container { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+    .logo { color: #fff; font-size: 1.5rem; font-weight: bold; }
+    nav ul { display: flex; gap: 24px; }
+    nav ul li a { color: #ccc; font-size: 1rem; transition: color 0.3s; }
+    nav ul li a:hover { color: #fff; }
+
+    /* 히어로 섹션 */
+    .hero { position: relative; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://cdn.pixabay.com/photo/2020/06/06/06/46/cat-5269443_1280.jpg') center/cover no-repeat; filter: grayscale(100%); z-index: 0; }
+    .hero .container { position: relative; padding: 120px 0; text-align: center; color: #fff; z-index: 1; }
+    .hero h2 { font-size: 2.8rem; margin-bottom: 16px; font-weight: 600; }
+    .hero p { font-size: 1.2rem; margin-bottom: 32px; color: #ddd; }
+    .hero .cta-button { background-color: #007acc; padding: 14px 28px; border-radius: 6px; font-size: 1rem; color: #fff; transition: background-color 0.3s; }
+    .hero .cta-button:hover { background-color: #005f99; }
+
+    /* 섹션 공통 */
+    .section { padding: 80px 0; background-color: #fff; }
+    .section.alt { background-color: #f5f5f5; }
+    .section h3 { font-size: 2rem; margin-bottom: 24px; text-align: center; color: #222; }
+    .section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto; color: #555; line-height: 1.6; text-align: center; }
+
+    /* About Me */
+    #about .container { max-width: 900px; }
+
+    /* Investment Theme */
+    #themes .container { max-width: 900px; }
+
+    /* Open Innovation */
+    #innovation .container { max-width: 900px; }
+
+    /* 푸터 */
+    footer { background-color: #111; padding: 20px 0; }
+    footer p { color: #ccc; text-align: center; font-size: 0.9rem; }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <h1>안녕하세요! 저는 Ken이에요 🌸</h1>
-  <p>귀엽고 감성적인 것을 좋아하고, 요즘 틱택토 게임을 만들었어요!</p>
-  <a class="button" href="tik-vibe-final.html">🎮 틱택토 게임 시작하기</a>
+  <header>
+    <div class="container">
+      <h1 class="logo">Ken's Investment and Innovation Lab</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#themes">Investment Theme</a></li>
+          <li><a href="#innovation">Open Innovation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2> 미래를 학습하다</h2>
+      <p> 오늘날의 기술과 변화를 바탕으로 미래를 이해하려고 합니다 (이 웹페이지는 100% 바이브코딩으로 제작되었습니다) </p>
+      <a href="#about" class="cta-button">시작하기</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h3>About Me</h3>
+      <p>
+        저는 신성우 혹은 Ken Shin입니다. 세딸의 아빠로, AI, 벤처 캐피털, 기업 개발 등 기술과 비즈니스 분야에 관심이 많으며, 미래 산업의 전략적 인사이트를 탐구합니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="themes" class="section alt">
+    <div class="container">
+      <h3>Investment Theme</h3>
+      <p>
+        기업에서 스타트업 투자 전문가로 활약하며 개인투자도 활발하게 합니다. AI와 Cryptocurrency에 깊은 열정을 가지고 있습니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="innovation" class="section">
+    <div class="container">
+      <h3>Open Innovation</h3>
+      <p>
+        저는 기업과 스타트업이 협력하여 새로운 가치를 창출하는 오픈 이노베이션의 현장에서, 변화와 혁신의 시대에도 기존 기업이 살아남아 번영할 수 있는 전략과 해법을 꾸준히 연구하고 있습니다.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 KenLab. All rights reserved.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
