@@ -29,7 +29,12 @@
       filter: grayscale(20%) brightness(0.9);
       z-index: 0;
       opacity: 1;
-      transition: opacity 1s ease-in-out, background-image 1s ease-in-out;
+      transform: scale(1);
+      transition: opacity 1s ease-in-out, transform 5s ease-in-out;
+    }
+    .hero.fade::before {
+      opacity: 0;
+      transform: scale(1.1);
     }
     .hero.fade::before {
       opacity: 0;
@@ -123,6 +128,7 @@
       '3.jpg',
       '4.jpg',
       '5.jpg'
+      
     ];
 
     function shuffle(arr) {
@@ -141,10 +147,11 @@
       index = (index + 1) % images.length;
       hero.classList.add('fade');
       setTimeout(() => {
+        hero.style.transition = 'background-image 1s ease-in-out';
         hero.style.setProperty('--bg-image', `url('${images[index]}')`);
         hero.classList.remove('fade');
-      }, 1000);
-    }, 3000);
+      }, 1500);
+    }, 5000);
   });
 </script>
 </head>
