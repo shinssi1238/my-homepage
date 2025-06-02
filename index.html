@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KenLab | Professional Homepage</title>
   <style>
-    /* Reset & 기본 설정 */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', Roboto, sans-serif; color: #333; background-color: #f9f9f9; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
-
-    /* 컨테이너 폭 제한 */
     .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-    /* 헤더 */
     header { background-color: #111; }
     header .container { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
     .logo { color: #fff; font-size: 1.5rem; font-weight: bold; }
@@ -23,35 +19,134 @@
     nav ul li a { color: #ccc; font-size: 1rem; transition: color 0.3s; }
     nav ul li a:hover { color: #fff; }
 
-    /* 히어로 섹션 */
     .hero { position: relative; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: url('96.jpg') center/cover no-repeat; filter: grayscale(100%); z-index: 0; }
-    .hero .container { position: relative; padding: 120px 0; text-align: center; color: #fff; z-index: 1; }
-    .hero h2 { font-size: 2.8rem; margin-bottom: 16px; font-weight: 600; }
-    .hero p { font-size: 1.2rem; margin-bottom: 32px; color: #ddd; }
-    .hero .cta-button { background-color: #007acc; padding: 14px 28px; border-radius: 6px; font-size: 1rem; color: #fff; transition: background-color 0.3s; }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg-image) center/cover no-repeat;
+      filter: grayscale(20%) brightness(0.9);
+      z-index: 0;
+      opacity: 1;
+      transition: opacity 1s ease-in-out, background-image 1s ease-in-out;
+    }
+    .hero.fade::before {
+      opacity: 0;
+    }
+    .hero .container {
+      position: relative;
+      padding: 120px 20px;
+      text-align: center;
+      color: #fff;
+      z-index: 1;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+      animation: fadeIn 1s ease-out;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 32px;
+      color: #ddd;
+      animation: fadeIn 1.4s ease-out;
+    }
+    .hero .cta-button {
+      background-color: #007acc;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #fff;
+      transition: background-color 0.3s;
+      animation: fadeIn 1.6s ease-out;
+    }
     .hero .cta-button:hover { background-color: #005f99; }
 
-    /* 섹션 공통 */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     .section { padding: 80px 0; background-color: #fff; }
     .section.alt { background-color: #f5f5f5; }
-    .section h3 { font-size: 2rem; margin-bottom: 24px; text-align: center; color: #222; }
-    .section p { font-size: 1.1rem; max-width: 800px; margin: 0 auto; color: #555; line-height: 1.6; text-align: center; }
+    .section h3 {
+      font-size: 2rem;
+      margin-bottom: 24px;
+      text-align: center;
+      color: #222;
+      animation: fadeIn 1s ease-out;
+    }
+    .section p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #555;
+      line-height: 1.6;
+      text-align: center;
+      animation: fadeIn 1.3s ease-out;
+    }
 
-    /* About Me */
-    #about .container { max-width: 900px; }
+    #about .container,
+    #themes .container,
+    #innovation .container {
+      max-width: 900px;
+    }
 
-    /* Investment Theme */
-    #themes .container { max-width: 900px; }
+    footer {
+      background-color: #111;
+      padding: 20px 0;
+    }
+    footer p {
+      color: #ccc;
+      text-align: center;
+      font-size: 0.9rem;
+    }
 
-    /* Open Innovation */
-    #innovation .container { max-width: 900px; }
-
-    /* 푸터 */
-    footer { background-color: #111; padding: 20px 0; }
-    footer p { color: #ccc; text-align: center; font-size: 0.9rem; }
+    @media (max-width: 768px) {
+      .hero h2 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      .hero .cta-button { padding: 10px 20px; font-size: 0.9rem; }
+    }
   </style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const images = [
+      '96.jpg',
+      '96.jpg',
+      '96.jpg',
+      '96.jpg',
+      '96.jpg'
+    ];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    shuffle(images);
+    let index = 0;
+    const hero = document.querySelector('.hero');
+    hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      hero.classList.add('fade');
+      setTimeout(() => {
+        hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+        hero.classList.remove('fade');
+      }, 1000);
+    }, 3000);
+  });
+</script>
 </head>
 <body>
 
