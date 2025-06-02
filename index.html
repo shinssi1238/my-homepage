@@ -14,7 +14,13 @@
 
     header { background-color: #111; }
     header .container { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
-    .logo { color: #fff; font-size: 1.5rem; font-weight: bold; }
+    /* 로고 이미지를 가운데 정렬하고 적절한 크기로 설정 */
+    .logo {
+      display: block;
+      width: 160px; /* 필요에 따라 조절 */
+      height: auto;
+    }
+
     nav ul { display: flex; gap: 24px; }
     nav ul li a { color: #ccc; font-size: 1rem; transition: color 0.3s; }
     nav ul li a:hover { color: #fff; }
@@ -118,48 +124,51 @@
       .hero h2 { font-size: 2rem; }
       .hero p { font-size: 1rem; }
       .hero .cta-button { padding: 10px 20px; font-size: 0.9rem; }
+      .logo { width: 120px; } /* 모바일에서 로고 크기 조정 */
     }
   </style>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const images = [
-      '1.jpg',
-      '2.jpg',
-      '3.jpg',
-      '4.jpg',
-      '5.jpg'
-      
-    ];
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const images = [
+        '1.jpg',
+        '2.jpg',
+        '3.jpg',
+        '4.jpg',
+        '5.jpg'
+      ];
 
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
       }
-    }
 
-    shuffle(images);
-    let index = 0;
-    const hero = document.querySelector('.hero');
-    hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+      shuffle(images);
+      let index = 0;
+      const hero = document.querySelector('.hero');
+      hero.style.setProperty('--bg-image', `url('${images[index]}')`);
 
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      hero.classList.add('fade');
-      setTimeout(() => {
-        hero.style.transition = 'background-image 1s ease-in-out';
-        hero.style.setProperty('--bg-image', `url('${images[index]}')`);
-        hero.classList.remove('fade');
-      }, 1500);
-    }, 5000);
-  });
-</script>
+      setInterval(() => {
+        index = (index + 1) % images.length;
+        hero.classList.add('fade');
+        setTimeout(() => {
+          hero.style.transition = 'background-image 1s ease-in-out';
+          hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+          hero.classList.remove('fade');
+        }, 1500);
+      }, 5000);
+    });
+  </script>
 </head>
 <body>
 
   <header>
     <div class="container">
-      <h1 class="logo">Ken's den </h1>
+      <!-- 기존 텍스트 로고 대신 아래와 같이 <img> 태그로 교체 -->
+      <a href="/" aria-label="홈으로 이동">
+        <img src="logo-seongwoo.png" alt="성우 로고" class="logo" />
+      </a>
       <nav>
         <ul>
           <li><a href="#about">About Me</a></li>
