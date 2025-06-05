@@ -9,83 +9,128 @@
   <meta property="og:description" content="KenLab: Exploring the future through AI, venture capital, and open innovation.">
   <meta property="og:image" content="logo.png">
   <meta property="og:url" content="https://yourwebsite.com">
+  <link rel="preload" href="images/hero-video.mp4" as="video">
   <link rel="preload" href="images/1.jpg" as="image">
   <link rel="preload" href="images/2.jpg" as="image">
   <link rel="preload" href="images/3.jpg" as="image">
   <link rel="preload" href="images/4.jpg" as="image">
   <link rel="preload" href="images/5.jpg" as="image">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <title>KenLab | Professional Homepage</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Segoe UI', Roboto, sans-serif; color: #333; background-color: #f9f9f9; }
+    body { font-family: 'Montserrat', sans-serif; color: #fff; background-color: #000; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    .container { width: 90%; max-width: 1400px; margin: 0 auto; }
 
-    header { background-color: #111; }
-    header .container { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
     .logo {
       display: block;
-      width: 80px;
+      width: 100px;
       height: auto;
     }
 
-    nav ul { display: flex; gap: 24px; }
-    nav ul li a { color: #ccc; font-size: 1rem; transition: color 0.3s; }
-    nav ul li a:hover { color: #fff; }
+    nav ul { display: flex; gap: 30px; }
+    nav ul li a {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: opacity 0.3s;
+    }
+    nav ul li a:hover { opacity: 0.7; }
 
-    .hero { position: relative; overflow: hidden; }
-    .hero::before {
-      content: "";
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+    nav.active { display: block; }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero video, .hero::before {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: var(--bg-image) center/cover no-repeat;
-      filter: grayscale(20%) brightness(0.9);
+      object-fit: cover;
       z-index: 0;
       opacity: 1;
-      transform: scale(1);
-      transition: opacity 1s ease-in-out, transform 5s ease-in-out;
+      transition: opacity 1s ease-in-out;
     }
-    .hero.fade::before {
+    .hero::before {
+      content: "";
+      background: var(--bg-image) center/cover no-repeat;
+      display: var(--bg-image-display, none);
+    }
+    .hero.fade::before, .hero.fade video {
       opacity: 0;
-      transform: scale(1.1);
+    }
+    .hero .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
     }
     .hero .container {
       position: relative;
-      padding: 120px 20px;
       text-align: center;
       color: #fff;
-      z-index: 1;
+      z-index: 2;
       animation: fadeInUp 1.2s ease-out;
     }
     .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 16px;
-      font-weight: 600;
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-transform: uppercase;
       animation: fadeIn 1s ease-out;
     }
     .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 32px;
-      color: #ddd;
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      font-weight: 400;
       animation: fadeIn 1.4s ease-out;
     }
     .hero .cta-button {
-      background-color: #007acc;
-      padding: 14px 28px;
-      border-radius: 6px;
-      font-size: 1rem;
+      background-color: #e82127;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: #fff;
-      transition: background-color 0.3s;
+      transition: transform 0.3s, background-color 0.3s;
       animation: fadeIn 1.6s ease-out;
     }
-    .hero .cta-button:hover { background-color: #005f99; }
+    .hero .cta-button:hover {
+      background-color: #b91c22;
+      transform: scale(1.05);
+    }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
@@ -93,21 +138,27 @@
       to { opacity: 1; }
     }
 
-    .section { padding: 80px 0; background-color: #fff; }
-    .section.alt { background-color: #f5f5f5; }
+    .section {
+      padding: 100px 0;
+      background-color: #111;
+      position: relative;
+      overflow: hidden;
+    }
+    .section.alt { background-color: #1a1a1a; }
     .section h3 {
-      font-size: 2rem;
-      margin-bottom: 24px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 30px;
       text-align: center;
-      color: #222;
+      color: #fff;
       animation: fadeIn 1s ease-out;
     }
     .section p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       max-width: 800px;
       margin: 0 auto;
-      color: #555;
-      line-height: 1.6;
+      color: #ccc;
+      line-height: 1.8;
       text-align: center;
       animation: fadeIn 1.3s ease-out;
     }
@@ -120,30 +171,48 @@
     }
 
     footer {
-      background-color: #111;
-      padding: 20px 0;
+      background-color: #000;
+      padding: 30px 0;
     }
     footer p {
       color: #ccc;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 1rem;
+      font-weight: 400;
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero p { font-size: 1rem; }
-      .hero .cta-button { padding: 10px 20px; font-size: 0.9rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.2rem; }
+      .hero .cta-button { padding: 12px 30px; font-size: 1rem; }
       .logo { width: 80px; }
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+      }
+      nav.active ul { display: flex; }
+      .hamburger { display: block; }
+      .section h3 { font-size: 2rem; }
+      .section p { font-size: 1rem; }
     }
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const images = [
-        'images/1.jpg',
-        'images/2.jpg',
-        'images/3.jpg',
-        'images/4.jpg',
-        'images/5.jpg'
+      // Image and video background handling
+      const backgrounds = [
+        { type: 'video', src: 'images/hero-video.mp4' },
+        { type: 'image', src: 'images/1.jpg' },
+        { type: 'image', src: 'images/2.jpg' },
+        { type: 'image', src: 'images/3.jpg' },
+        { type: 'image', src: 'images/4.jpg' },
+        { type: 'image', src: 'images/5.jpg' }
       ];
 
       function shuffle(arr) {
@@ -153,28 +222,76 @@
         }
       }
 
-      function preloadImages(arr) {
-        arr.forEach((src) => {
-          const img = new Image();
-          img.src = src;
-          img.onerror = () => console.warn(`Failed to load image: ${src}`);
+      function preloadAssets(arr) {
+        arr.forEach((item) => {
+          if (item.type === 'image') {
+            const img = new Image();
+            img.src = item.src;
+            img.onerror = () => console.warn(`Failed to load image: ${item.src}`);
+          } else if (item.type === 'video') {
+            const video = document.createElement('video');
+            video.src = item.src;
+            video.onerror = () => console.warn(`Failed to load video: ${item.src}`);
+          }
         });
       }
 
-      shuffle(images);
-      preloadImages(images);
+      shuffle(backgrounds);
       let index = 0;
       const hero = document.querySelector('.hero');
-      hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+      const videoElement = document.createElement('video');
+      videoElement.autoplay = true;
+      videoElement.muted = true;
+      videoElement.loop = true;
+      videoElement.playsInline = true;
+      hero.prepend(videoElement);
+
+      function setBackground() {
+        const current = backgrounds[index];
+        if (current.type === 'video') {
+          videoElement.src = current.src;
+          hero.style.setProperty('--bg-image-display', 'none');
+          videoElement.style.display = 'block';
+        } else {
+          hero.style.setProperty('--bg-image', `url('${current.src}')`);
+          hero.style.setProperty('--bg-image-display', 'block');
+          videoElement.style.display = 'none';
+        }
+      }
+
+      setBackground();
+      preloadAssets(backgrounds);
 
       setInterval(() => {
-        index = (index + 1) % images.length;
+        index = (index + 1) % backgrounds.length;
         hero.classList.add('fade');
         setTimeout(() => {
-          hero.style.setProperty('--bg-image', `url('${images[index]}')`);
+          setBackground();
           hero.classList.remove('fade');
         }, 1500);
       }, 5000);
+
+      // Hamburger menu toggle
+      const hamburger = document.querySelector('.hamburger');
+      const nav = document.querySelector('nav');
+      hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+      });
+
+      // Scroll-triggered animations
+      const sections = document.querySelectorAll('.section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      sections.forEach(section => {
+        section.classList.add('hidden');
+        observer.observe(section);
+      });
     });
   </script>
 </head>
@@ -193,14 +310,16 @@
           <li><a href="#fun">Fun</a></li>
         </ul>
       </nav>
+      <div class="hamburger">☰</div>
     </div>
   </header>
 
   <section class="hero">
+    <div class="overlay"></div>
     <div class="container">
       <h1>미래를 학습하다</h1>
-      <p>오늘날의 기술과 변화를 바탕으로 미래를 공부합니다</p>
-      <a href="#about" class="cta-button">시작하기</a>
+      <p>기술과 변화를 통해 미래를 탐구</p>
+      <a href="#about" class="cta-button">탐험 시작</a>
     </div>
   </section>
 
@@ -208,7 +327,7 @@
     <div class="container">
       <h3>About Me</h3>
       <p>
-        저는 신성우(Ken Shin)입니다. 세딸의 아빠로, AI, 벤처 캐피털, 기업 개발 등 기술과 비즈니스 분야에 관심이 많으며, 미래 산업의 전략적 인사이트를 탐구합니다.
+        신성우(Ken Shin). 세 딸의 아빠이자, AI, 벤처 캐피털, 기업 개발에 열정을 가진 미래 산업 탐구자.
       </p>
     </div>
   </section>
@@ -217,7 +336,7 @@
     <div class="container">
       <h3>Investment Theme</h3>
       <p>
-        기업에서 스타트업 투자 전문가로 활약하며 개인투자도 활발하게 합니다. AI와 Cryptocurrency에 깊은 열정을 가지고 있습니다.
+        스타트업 투자 전문가로, AI와 Cryptocurrency에 깊은 관심을 가지고 개인 투자도 활발히 진행.
       </p>
     </div>
   </section>
@@ -226,7 +345,7 @@
     <div class="container">
       <h3>Open Innovation</h3>
       <p>
-        저는 기업과 스타트업이 협력하여 새로운 가치를 창출하는 오픈 이노베이션의 현장에서, 변화와 혁신의 시대에도 기존 기업이 살아남아 번영할 수 있는 전략과 해법을 꾸준히 연구하고 있습니다.
+        기업과 스타트업의 협력을 통해 혁신적 가치를 창출하며, 변화의 시대에 기업이 번영할 전략을 연구.
       </p>
     </div>
   </section>
@@ -235,7 +354,7 @@
     <div class="container">
       <h3>Fun</h3>
       <p>
-        세딸과 같이 만든 게임과 컨텐츠 입니다. 미흡하지만 같이 즐기고 공유 하고 싶습니다
+        세명의 딸들과의 시간, 여행, 새로운 경험을 통해 삶의 행복 찾고, 즐거움 속에서 창의적 영감을 얻음.
       </p>
     </div>
   </section>
